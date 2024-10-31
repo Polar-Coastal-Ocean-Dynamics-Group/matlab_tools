@@ -1,7 +1,9 @@
 
-function [UR,ZI]=sigmav2(UU,bins,press,num)
+function [UR,ZI]=sigmav2(UU,bins,num,press)
 % This function puts vertical data into a coordinate following system, or "sigma" coordinates.
 % This function is intended for oceanographic data so is pressure/ depth oriented. 
+%
+% [UR,ZI]=sigmav2(UU,bins,press,num)
 %
 % Inputs are:
 % UU = data as a function of depth. Examples are U(z) or S(z). 
