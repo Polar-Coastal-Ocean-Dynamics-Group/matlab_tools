@@ -17,7 +17,7 @@ function [tlow, xlow, xhi] = lanczos_filter(x,tm,ns,t_cut,f_samp)
 % xlow: The low-passed data.
 % xhi: the high-passed data determined by x-xlow.
 
-    om = (2*pi)/(t_cut*f_samp*f_samp);  % om = 2 pi over cut off period times sampling frequency squared per hour  
+    om = (2*pi)/(t_cut*f_samp);  % om = 2 pi over cut off period times sampling frequency squared per hour  
 
     omn = 2*pi/(2*ns+1);
     i = -ns:ns;
