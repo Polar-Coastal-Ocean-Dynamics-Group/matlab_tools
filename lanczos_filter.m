@@ -7,7 +7,7 @@ function [tlow, xlow, xhi] = lanczos_filter(x,tm,hww,t_cut,f_samp)
 % INPUTS 
 % x: Raw time series of currents or sea surface elevation.
 % tm: Time variable coresponding to x. 
-% hww: Half window width for the lanczos filter. must be larger than om. 
+% hww: Half window width for the lanczos filter. must be larger than om. Often I use 71 for tidal, might need 71*f_samp. 
 % t_cut: Desired cut-off period. 32 hours is often good for seperating low
 %        frequency signal from tidal signal.
 % f_samp: Sampling frequency per hour. 
@@ -16,6 +16,11 @@ function [tlow, xlow, xhi] = lanczos_filter(x,tm,hww,t_cut,f_samp)
 % tlow: New time varible with matching size for xlow.
 % xlow: The low-passed data.
 % xhi: the high-passed data determined by x-xlow.
+
+    if mod(hww,2) == 0  % hww must be odd number for the tlow and xlow variables to match up
+        hww = hww +1;
+    else
+    end
 
     om = (2*pi)/(t_cut*f_samp);  % om = 2 pi over cut off period times sampling frequency per hour  
 

@@ -19,19 +19,21 @@ function [UR,ZI]=sigmav2(UU,bins,num,press)
 % UR = interpolated values into sigma coordinate grid.
 % Zi = the depth of the sigma coordinate bins
 
-
+num = num-1;
 n = length(UU);
 if exist('press','var')
     for i=1:n
             k = find(isfinite(UU(:,i))); % Checks each time step and see if there is good data
             
-            if (length(k>=6)) && isfinite(press(i)) % If there is at least 6 bins of good data
+            if length(k)>=6 && isfinite(press(i)) % If there is at least 6 bins of good data
         
                 ibad= find(~isfinite(UU(1:k(end),i))); %finds any bad data in the column of good data
         
-                if(length(ibad>=1))
-                    UU(ibad,i)=interp1(bins(k),UU(k,i),bins(ibad)); % interperates across bad bins
+                if length(ibad)>=1
+                   UU(ibad,i)=interp1(bins(k),UU(k,i),bins(ibad)); % interperates across bad bins
+
                 end
+
                 dz= press(i)/num;
                 zi= [0:dz:press(i)];
                 ztop= press(i)-bins(k(end));
@@ -51,9 +53,9 @@ if exist('press','var')
 else %If pressure data does not exsist then depth is interpolated from the bins. 
     for i=1:n
         k=find(isfinite(UU(:,i)));
-            if (length(k>=6))
+            if length(k)>=6
                 ibad= find(~isfinite(UU(1:k(end),i)));
-                if (length(ibad>=1))
+                if length(ibad)>=1
                     UU(ibad,i)=interp1(bins(k),UU(k,i),bins(ibad));
                 end
                 dz=(bins(k(end))-bins(1))/num;
